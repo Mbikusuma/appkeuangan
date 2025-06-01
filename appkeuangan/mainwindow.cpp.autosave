@@ -1,0 +1,199 @@
+#include "mainwindow.h"
+#include "ui_mainwindow.h"
+#include <QMessageBox>
+#include <QDebug>
+#include <QFile>
+#include <QTextStream>
+#include <QDate>
+#include <QFile>
+#include <QTextStream>
+
+MainWindow::MainWindow(QWidget *parent)
+    : QMainWindow(parent)
+    , ui(new Ui::MainWindow)
+{
+    ui->setupUi(this);
+    // Sambungkan tombol ke halaman
+    connect(ui->Transaksi, &QPushButton::clicked, [=]() {
+        ui->stackedWidget->setCurrentWidget(ui->PageTransaksi);  // Page transaksi
+    });
+
+    connect(ui->Histori, &QPushButton::clicked, this, [=]() {
+        ui->stackedWidget->setCurrentWidget(ui->PageHistori);  // Page histori
+        muatHistori();
+    });
+
+    connect(ui->Budgeting, &QPushButton::clicked, [=]() {
+        ui->stackedWidget->setCurrentWidget(ui->PageBudgeting);  // Page laporan
+    });
+
+    connect(ui->Rekomendasi, &QPushButton::clicked, [=]() {
+        ui->stackedWidget->setCurrentWidget(ui->PageRekom);  // Page rekomendasi
+    });
+
+    connect(ui->Pengaturan, &QPushButton::clicked, [=]() {
+        ui->stackedWidget->setCurrentWidget(ui->PagePengaturan);  // Page pengaturan
+    });
+
+    connect(ui->SimpanTransaksi, &QPushButton::clicked, this, &MainWindow::simpanTransaksi);
+    ui->comboJenis->addItems({"Pemasukan", "Pengeluaran"});
+
+    connect(ui->SimpanBudget, &QPushButton::clicked, this, &MainWindow::simpanBudget);
+
+    connect(ui->Budgeting, &QPushButton::clicked, this, [=]() {
+        ui->stackedWidget->setCurrentWidget(ui->PageBudgeting);
+        tampilkanBudget();  // <- Panggil ini agar isi tabel selalu di-refresh
+    });
+
+
+}
+
+MainWindow::~MainWindow()
+{
+    delete ui;
+}
+void MainWindow::simpanTransaksi() {
+    QString jenis = ui->comboJenis->currentText();
+    QString kategori = ui->comboKategori->currentText();
+    QString tanggal = QDate::currentDate().toString("yyyy-MM-dd");
+    QString jumlah = ui->inputJumlah->text();
+    QString catatan = ui->inputCatatan->toPlainText();
+
+    if (jumlah.isEmpty()) {
+        QMessageBox::warning(this, "Peringatan", "Jumlah tidak boleh kosong.");
+        return;
+    }
+
+    // Simpan ke file
+    QFile file("transaksi.csv");
+    if (file.open(QIODevice::Append | QIODevice::Text)) {
+        QTextStream out(&file);
+        out << tanggal << "," << jenis << "," << kategori << "," << jumlah << "," << catatan << "\n";
+        file.close();
+
+        QMessageBox::information(this, "Berhasil", "Transaksi berhasil disimpan!");
+
+        // Kosongkan input
+        ui->inputJumlah->clear();
+        ui->inputCatatan->clear();
+    } else {
+        QMessageBox::critical(this, "Gagal", "Tidak bisa membuka file transaksi.");
+    }
+    if (jenis == "Pemasukan") {
+        updateBudgetFromIncome(ui->inputJumlah->text().toDouble());
+    }
+
+}
+void MainWindow::muatHistori() {
+    QFile file("transaksi.csv");
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        return;
+    }
+
+    QTextStream in(&file);
+    ui->tabelHistori->setRowCount(0); // Reset isi tabel
+
+    int row = 0;
+    while (!in.atEnd()) {
+        QString line = in.readLine();
+        QStringList data = line.split(",");
+        if (data.size() < 5) continue;
+
+        ui->tabelHistori->insertRow(row);
+        for (int col = 0; col < 5; ++col) {
+            ui->tabelHistori->setItem(row, col, new QTableWidgetItem(data[col]));
+        }
+        row++;
+    }
+
+    file.close();
+}
+
+void MainWindow::simpanBudget() {
+    QString kategori = ui->inputKategoriBudget->text();
+    double jumlah = ui->inputJumlahBudget->value();
+
+    if (kategori.isEmpty() || jumlah <= 0) {
+        QMessageBox::warning(this, "Peringatan", "Kategori dan jumlah harus diisi dengan benar.");
+        return;
+    }
+
+    QFile file("budget.csv");
+    if (file.open(QIODevice::Append | QIODevice::Text)) {
+        QTextStream out(&file);
+        out << kategori << "," << jumlah << "\n";
+        file.close();
+    }
+
+    ui->inputKategoriBudget->clear();
+    ui->inputJumlahBudget->setValue(0);
+
+    tampilkanBudget();
+}
+
+void MainWindow::tampilkanBudget() {
+    ui->tabelBudget->setRowCount(0);
+
+    QFile file("budget.csv");
+    if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        QTextStream in(&file);
+        int row = 0;
+        while (!in.atEnd()) {
+            QString line = in.readLine();
+            QStringList data = line.split(",");
+            if (data.size() == 2) {
+                ui->tabelBudget->insertRow(row);
+                ui->tabelBudget->setItem(row, 0, new QTableWidgetItem(data[0]));
+                ui->tabelBudget->setItem(row, 1, new QTableWidgetItem(data[1]));
+                row++;
+            }
+        }
+        file.close();
+    }
+}
+void MainWindow::updateBudgetFromIncome(double incomeAmount) {
+    double kebutuhanPct = 0, tabunganPct = 0, jajanPct = 0;
+    
+    
+
+    // 1. Baca konfigurasi persentase dari budget_config.csv
+    QFile configFile("budget_config.csv");
+    if (configFile.open(QIODevice::ReadOnly)) {
+        QTextStream in(&configFile);
+        in.readLine(); // Skip header
+        while (!in.atEnd()) {
+            QString line = in.readLine();
+            QStringList parts = line.split(",");
+            if (parts.size() == 2) {
+                QString kategori = parts[0];
+                double persen = parts[1].toDouble();
+
+                if (kategori == "kebutuhan") kebutuhanPct = persen;
+                else if (kategori == "tabungan") tabunganPct = persen;
+                else if (kategori == "jajan") jajanPct = persen;
+            }
+        }
+        configFile.close();
+    }
+
+    // 2. Hitung alokasi
+    double totalPemasukan = incomeAmount;
+    double kebutuhan = totalPemasukan * kebutuhanPct / 100.0;
+    double tabungan  = totalPemasukan * tabunganPct  / 100.0;
+    double jajan     = totalPemasukan * jajanPct     / 100.0;
+
+    // 3. Simpan hasil ke file budget_data.csv (append)
+    QFile outFile("budget_data.csv");
+    if (outFile.open(QIODevice::Append)) {
+        QTextStream out(&outFile);
+        QDate tanggal = QDate::currentDate();
+        out << tanggal.toString("yyyy-MM-dd") << ","
+            << totalPemasukan << ","
+            << kebutuhan << ","
+            << tabungan << ","
+            << jajan << "\n";
+        outFile.close();
+    }
+}
+
+

@@ -14,7 +14,7 @@
 #include <QtWidgets/QComboBox>
 #include <QtWidgets/QDateEdit>
 #include <QtWidgets/QDoubleSpinBox>
-#include <QtWidgets/QHBoxLayout>
+#include <QtWidgets/QGridLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
@@ -34,37 +34,46 @@ class Ui_MainWindow
 {
 public:
     QWidget *centralwidget;
-    QHBoxLayout *horizontalLayout;
+    QGridLayout *gridLayout_4;
     QWidget *widget;
     QVBoxLayout *verticalLayout;
-    QPushButton *Transaksi;
-    QPushButton *Histori;
-    QPushButton *Budgeting;
-    QPushButton *Rekomendasi;
-    QPushButton *Pengaturan;
+    QPushButton *btnTransaksi;
+    QPushButton *btnHistori;
+    QPushButton *btnBudgeting;
+    QPushButton *btnPengaturan;
+    QPushButton *btnRekomendasi;
     QStackedWidget *stackedWidget;
-    QWidget *PageHistori;
-    QWidget *PageRekom;
-    QWidget *PageBudgeting;
-    QLineEdit *inputKategoriBudget;
+    QWidget *Page1Histori;
+    QGridLayout *gridLayout_3;
+    QLabel *label_11;
+    QTableWidget *tabelHistori;
+    QWidget *Page4Rekom;
+    QLabel *label_13;
+    QWidget *Page2Budgeting;
+    QGridLayout *gridLayout;
+    QPushButton *TambahKategori;
     QLabel *label_7;
-    QDoubleSpinBox *inputJumlahBudget;
-    QLabel *label_8;
-    QPushButton *SimpanBudget;
+    QDoubleSpinBox *doubleSpinBox;
     QTableWidget *tabelBudget;
-    QWidget *PagePengaturan;
-    QWidget *PageTransaksi;
+    QPushButton *SimpanBudget;
+    QLabel *label_10;
+    QLineEdit *inputKategoriBudget;
+    QLabel *label_9;
+    QWidget *Page3Pengaturan;
+    QLabel *label_12;
+    QWidget *Page0Transaksi;
+    QGridLayout *gridLayout_2;
     QLabel *label;
-    QComboBox *comboJenis;
     QLabel *label_2;
-    QLineEdit *inputJumlah;
+    QComboBox *comboJenis;
     QLabel *label_3;
-    QDateEdit *inputTanggal;
+    QLineEdit *inputJumlah;
     QLabel *label_4;
-    QComboBox *comboKategori;
+    QDateEdit *inputTanggal;
     QLabel *label_5;
-    QTextEdit *inputCatatan;
+    QComboBox *comboKategori;
     QLabel *label_6;
+    QTextEdit *inputCatatan;
     QPushButton *SimpanTransaksi;
     QMenuBar *menubar;
     QStatusBar *statusbar;
@@ -76,126 +85,197 @@ public:
         MainWindow->resize(800, 600);
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName("centralwidget");
-        horizontalLayout = new QHBoxLayout(centralwidget);
-        horizontalLayout->setObjectName("horizontalLayout");
+        gridLayout_4 = new QGridLayout(centralwidget);
+        gridLayout_4->setObjectName("gridLayout_4");
         widget = new QWidget(centralwidget);
         widget->setObjectName("widget");
         verticalLayout = new QVBoxLayout(widget);
         verticalLayout->setObjectName("verticalLayout");
-        Transaksi = new QPushButton(widget);
-        Transaksi->setObjectName("Transaksi");
+        btnTransaksi = new QPushButton(widget);
+        btnTransaksi->setObjectName("btnTransaksi");
 
-        verticalLayout->addWidget(Transaksi);
+        verticalLayout->addWidget(btnTransaksi);
 
-        Histori = new QPushButton(widget);
-        Histori->setObjectName("Histori");
+        btnHistori = new QPushButton(widget);
+        btnHistori->setObjectName("btnHistori");
 
-        verticalLayout->addWidget(Histori);
+        verticalLayout->addWidget(btnHistori);
 
-        Budgeting = new QPushButton(widget);
-        Budgeting->setObjectName("Budgeting");
+        btnBudgeting = new QPushButton(widget);
+        btnBudgeting->setObjectName("btnBudgeting");
 
-        verticalLayout->addWidget(Budgeting);
+        verticalLayout->addWidget(btnBudgeting);
 
-        Rekomendasi = new QPushButton(widget);
-        Rekomendasi->setObjectName("Rekomendasi");
+        btnPengaturan = new QPushButton(widget);
+        btnPengaturan->setObjectName("btnPengaturan");
 
-        verticalLayout->addWidget(Rekomendasi);
+        verticalLayout->addWidget(btnPengaturan);
 
-        Pengaturan = new QPushButton(widget);
-        Pengaturan->setObjectName("Pengaturan");
+        btnRekomendasi = new QPushButton(widget);
+        btnRekomendasi->setObjectName("btnRekomendasi");
 
-        verticalLayout->addWidget(Pengaturan);
+        verticalLayout->addWidget(btnRekomendasi);
 
 
-        horizontalLayout->addWidget(widget);
+        gridLayout_4->addWidget(widget, 0, 0, 1, 1);
 
         stackedWidget = new QStackedWidget(centralwidget);
         stackedWidget->setObjectName("stackedWidget");
-        PageHistori = new QWidget();
-        PageHistori->setObjectName("PageHistori");
-        stackedWidget->addWidget(PageHistori);
-        PageRekom = new QWidget();
-        PageRekom->setObjectName("PageRekom");
-        stackedWidget->addWidget(PageRekom);
-        PageBudgeting = new QWidget();
-        PageBudgeting->setObjectName("PageBudgeting");
-        inputKategoriBudget = new QLineEdit(PageBudgeting);
-        inputKategoriBudget->setObjectName("inputKategoriBudget");
-        inputKategoriBudget->setGeometry(QRect(50, 60, 221, 24));
-        label_7 = new QLabel(PageBudgeting);
-        label_7->setObjectName("label_7");
-        label_7->setGeometry(QRect(50, 30, 111, 16));
-        inputJumlahBudget = new QDoubleSpinBox(PageBudgeting);
-        inputJumlahBudget->setObjectName("inputJumlahBudget");
-        inputJumlahBudget->setGeometry(QRect(50, 120, 161, 25));
-        inputJumlahBudget->setDecimals(0);
-        inputJumlahBudget->setMaximum(1000000.000000000000000);
-        label_8 = new QLabel(PageBudgeting);
-        label_8->setObjectName("label_8");
-        label_8->setGeometry(QRect(50, 100, 171, 16));
-        SimpanBudget = new QPushButton(PageBudgeting);
-        SimpanBudget->setObjectName("SimpanBudget");
-        SimpanBudget->setGeometry(QRect(530, 420, 91, 24));
-        tabelBudget = new QTableWidget(PageBudgeting);
-        if (tabelBudget->columnCount() < 1)
-            tabelBudget->setColumnCount(1);
+        QSizePolicy sizePolicy(QSizePolicy::Policy::Expanding, QSizePolicy::Policy::Preferred);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(stackedWidget->sizePolicy().hasHeightForWidth());
+        stackedWidget->setSizePolicy(sizePolicy);
+        Page1Histori = new QWidget();
+        Page1Histori->setObjectName("Page1Histori");
+        gridLayout_3 = new QGridLayout(Page1Histori);
+        gridLayout_3->setObjectName("gridLayout_3");
+        label_11 = new QLabel(Page1Histori);
+        label_11->setObjectName("label_11");
+        QFont font;
+        font.setPointSize(12);
+        label_11->setFont(font);
+
+        gridLayout_3->addWidget(label_11, 0, 0, 1, 1);
+
+        tabelHistori = new QTableWidget(Page1Histori);
+        if (tabelHistori->columnCount() < 5)
+            tabelHistori->setColumnCount(5);
         QTableWidgetItem *__qtablewidgetitem = new QTableWidgetItem();
-        tabelBudget->setHorizontalHeaderItem(0, __qtablewidgetitem);
-        if (tabelBudget->rowCount() < 5)
-            tabelBudget->setRowCount(5);
+        tabelHistori->setHorizontalHeaderItem(0, __qtablewidgetitem);
         QTableWidgetItem *__qtablewidgetitem1 = new QTableWidgetItem();
-        tabelBudget->setVerticalHeaderItem(0, __qtablewidgetitem1);
+        tabelHistori->setHorizontalHeaderItem(1, __qtablewidgetitem1);
         QTableWidgetItem *__qtablewidgetitem2 = new QTableWidgetItem();
-        tabelBudget->setVerticalHeaderItem(1, __qtablewidgetitem2);
+        tabelHistori->setHorizontalHeaderItem(2, __qtablewidgetitem2);
         QTableWidgetItem *__qtablewidgetitem3 = new QTableWidgetItem();
-        tabelBudget->setVerticalHeaderItem(2, __qtablewidgetitem3);
+        tabelHistori->setHorizontalHeaderItem(3, __qtablewidgetitem3);
         QTableWidgetItem *__qtablewidgetitem4 = new QTableWidgetItem();
-        tabelBudget->setVerticalHeaderItem(3, __qtablewidgetitem4);
+        tabelHistori->setHorizontalHeaderItem(4, __qtablewidgetitem4);
+        tabelHistori->setObjectName("tabelHistori");
+
+        gridLayout_3->addWidget(tabelHistori, 1, 0, 1, 1);
+
+        stackedWidget->addWidget(Page1Histori);
+        Page4Rekom = new QWidget();
+        Page4Rekom->setObjectName("Page4Rekom");
+        label_13 = new QLabel(Page4Rekom);
+        label_13->setObjectName("label_13");
+        label_13->setGeometry(QRect(30, 20, 111, 31));
+        label_13->setFont(font);
+        stackedWidget->addWidget(Page4Rekom);
+        Page2Budgeting = new QWidget();
+        Page2Budgeting->setObjectName("Page2Budgeting");
+        gridLayout = new QGridLayout(Page2Budgeting);
+        gridLayout->setObjectName("gridLayout");
+        TambahKategori = new QPushButton(Page2Budgeting);
+        TambahKategori->setObjectName("TambahKategori");
+
+        gridLayout->addWidget(TambahKategori, 2, 1, 1, 1);
+
+        label_7 = new QLabel(Page2Budgeting);
+        label_7->setObjectName("label_7");
+
+        gridLayout->addWidget(label_7, 1, 0, 1, 1);
+
+        doubleSpinBox = new QDoubleSpinBox(Page2Budgeting);
+        doubleSpinBox->setObjectName("doubleSpinBox");
+
+        gridLayout->addWidget(doubleSpinBox, 4, 0, 1, 1);
+
+        tabelBudget = new QTableWidget(Page2Budgeting);
+        if (tabelBudget->columnCount() < 2)
+            tabelBudget->setColumnCount(2);
         QTableWidgetItem *__qtablewidgetitem5 = new QTableWidgetItem();
-        tabelBudget->setVerticalHeaderItem(4, __qtablewidgetitem5);
+        tabelBudget->setHorizontalHeaderItem(0, __qtablewidgetitem5);
         QTableWidgetItem *__qtablewidgetitem6 = new QTableWidgetItem();
-        tabelBudget->setItem(0, 0, __qtablewidgetitem6);
-        QTableWidgetItem *__qtablewidgetitem7 = new QTableWidgetItem();
-        tabelBudget->setItem(1, 0, __qtablewidgetitem7);
-        QTableWidgetItem *__qtablewidgetitem8 = new QTableWidgetItem();
-        tabelBudget->setItem(2, 0, __qtablewidgetitem8);
-        QTableWidgetItem *__qtablewidgetitem9 = new QTableWidgetItem();
-        tabelBudget->setItem(3, 0, __qtablewidgetitem9);
-        QTableWidgetItem *__qtablewidgetitem10 = new QTableWidgetItem();
-        tabelBudget->setItem(4, 0, __qtablewidgetitem10);
+        tabelBudget->setHorizontalHeaderItem(1, __qtablewidgetitem6);
         tabelBudget->setObjectName("tabelBudget");
-        tabelBudget->setGeometry(QRect(50, 170, 231, 181));
-        stackedWidget->addWidget(PageBudgeting);
-        PagePengaturan = new QWidget();
-        PagePengaturan->setObjectName("PagePengaturan");
-        stackedWidget->addWidget(PagePengaturan);
-        PageTransaksi = new QWidget();
-        PageTransaksi->setObjectName("PageTransaksi");
-        label = new QLabel(PageTransaksi);
+        QSizePolicy sizePolicy1(QSizePolicy::Policy::Fixed, QSizePolicy::Policy::Expanding);
+        sizePolicy1.setHorizontalStretch(0);
+        sizePolicy1.setVerticalStretch(0);
+        sizePolicy1.setHeightForWidth(tabelBudget->sizePolicy().hasHeightForWidth());
+        tabelBudget->setSizePolicy(sizePolicy1);
+        tabelBudget->setDefaultDropAction(Qt::DropAction::TargetMoveAction);
+        tabelBudget->horizontalHeader()->setStretchLastSection(true);
+
+        gridLayout->addWidget(tabelBudget, 6, 0, 1, 2);
+
+        SimpanBudget = new QPushButton(Page2Budgeting);
+        SimpanBudget->setObjectName("SimpanBudget");
+
+        gridLayout->addWidget(SimpanBudget, 7, 2, 1, 1);
+
+        label_10 = new QLabel(Page2Budgeting);
+        label_10->setObjectName("label_10");
+        label_10->setFont(font);
+
+        gridLayout->addWidget(label_10, 0, 0, 1, 1);
+
+        inputKategoriBudget = new QLineEdit(Page2Budgeting);
+        inputKategoriBudget->setObjectName("inputKategoriBudget");
+
+        gridLayout->addWidget(inputKategoriBudget, 2, 0, 1, 1);
+
+        label_9 = new QLabel(Page2Budgeting);
+        label_9->setObjectName("label_9");
+
+        gridLayout->addWidget(label_9, 3, 0, 1, 1);
+
+        stackedWidget->addWidget(Page2Budgeting);
+        Page3Pengaturan = new QWidget();
+        Page3Pengaturan->setObjectName("Page3Pengaturan");
+        label_12 = new QLabel(Page3Pengaturan);
+        label_12->setObjectName("label_12");
+        label_12->setGeometry(QRect(20, 20, 111, 21));
+        label_12->setFont(font);
+        stackedWidget->addWidget(Page3Pengaturan);
+        Page0Transaksi = new QWidget();
+        Page0Transaksi->setObjectName("Page0Transaksi");
+        gridLayout_2 = new QGridLayout(Page0Transaksi);
+        gridLayout_2->setObjectName("gridLayout_2");
+        label = new QLabel(Page0Transaksi);
         label->setObjectName("label");
-        label->setGeometry(QRect(30, 30, 61, 16));
-        comboJenis = new QComboBox(PageTransaksi);
+
+        gridLayout_2->addWidget(label, 0, 0, 1, 1);
+
+        label_2 = new QLabel(Page0Transaksi);
+        label_2->setObjectName("label_2");
+
+        gridLayout_2->addWidget(label_2, 1, 0, 1, 1);
+
+        comboJenis = new QComboBox(Page0Transaksi);
         comboJenis->addItem(QString());
         comboJenis->addItem(QString());
         comboJenis->setObjectName("comboJenis");
-        comboJenis->setGeometry(QRect(150, 50, 101, 24));
-        label_2 = new QLabel(PageTransaksi);
-        label_2->setObjectName("label_2");
-        label_2->setGeometry(QRect(30, 50, 111, 16));
-        inputJumlah = new QLineEdit(PageTransaksi);
-        inputJumlah->setObjectName("inputJumlah");
-        inputJumlah->setGeometry(QRect(40, 100, 113, 24));
-        label_3 = new QLabel(PageTransaksi);
+
+        gridLayout_2->addWidget(comboJenis, 1, 1, 1, 1);
+
+        label_3 = new QLabel(Page0Transaksi);
         label_3->setObjectName("label_3");
-        label_3->setGeometry(QRect(30, 80, 141, 16));
-        inputTanggal = new QDateEdit(PageTransaksi);
-        inputTanggal->setObjectName("inputTanggal");
-        inputTanggal->setGeometry(QRect(40, 150, 110, 25));
-        label_4 = new QLabel(PageTransaksi);
+
+        gridLayout_2->addWidget(label_3, 2, 0, 1, 1);
+
+        inputJumlah = new QLineEdit(Page0Transaksi);
+        inputJumlah->setObjectName("inputJumlah");
+
+        gridLayout_2->addWidget(inputJumlah, 3, 0, 1, 1);
+
+        label_4 = new QLabel(Page0Transaksi);
         label_4->setObjectName("label_4");
-        label_4->setGeometry(QRect(30, 130, 141, 16));
-        comboKategori = new QComboBox(PageTransaksi);
+
+        gridLayout_2->addWidget(label_4, 4, 0, 1, 1);
+
+        inputTanggal = new QDateEdit(Page0Transaksi);
+        inputTanggal->setObjectName("inputTanggal");
+
+        gridLayout_2->addWidget(inputTanggal, 5, 0, 1, 1);
+
+        label_5 = new QLabel(Page0Transaksi);
+        label_5->setObjectName("label_5");
+
+        gridLayout_2->addWidget(label_5, 6, 0, 1, 1);
+
+        comboKategori = new QComboBox(Page0Transaksi);
         comboKategori->addItem(QString());
         comboKategori->addItem(QString());
         comboKategori->addItem(QString());
@@ -204,22 +284,27 @@ public:
         comboKategori->addItem(QString());
         comboKategori->addItem(QString());
         comboKategori->setObjectName("comboKategori");
-        comboKategori->setGeometry(QRect(40, 200, 111, 24));
-        label_5 = new QLabel(PageTransaksi);
-        label_5->setObjectName("label_5");
-        label_5->setGeometry(QRect(30, 180, 81, 16));
-        inputCatatan = new QTextEdit(PageTransaksi);
-        inputCatatan->setObjectName("inputCatatan");
-        inputCatatan->setGeometry(QRect(40, 250, 481, 31));
-        label_6 = new QLabel(PageTransaksi);
-        label_6->setObjectName("label_6");
-        label_6->setGeometry(QRect(30, 230, 81, 16));
-        SimpanTransaksi = new QPushButton(PageTransaksi);
-        SimpanTransaksi->setObjectName("SimpanTransaksi");
-        SimpanTransaksi->setGeometry(QRect(530, 440, 80, 24));
-        stackedWidget->addWidget(PageTransaksi);
 
-        horizontalLayout->addWidget(stackedWidget);
+        gridLayout_2->addWidget(comboKategori, 7, 0, 1, 1);
+
+        label_6 = new QLabel(Page0Transaksi);
+        label_6->setObjectName("label_6");
+
+        gridLayout_2->addWidget(label_6, 8, 0, 1, 1);
+
+        inputCatatan = new QTextEdit(Page0Transaksi);
+        inputCatatan->setObjectName("inputCatatan");
+
+        gridLayout_2->addWidget(inputCatatan, 9, 0, 1, 1);
+
+        SimpanTransaksi = new QPushButton(Page0Transaksi);
+        SimpanTransaksi->setObjectName("SimpanTransaksi");
+
+        gridLayout_2->addWidget(SimpanTransaksi, 10, 1, 1, 1);
+
+        stackedWidget->addWidget(Page0Transaksi);
+
+        gridLayout_4->addWidget(stackedWidget, 0, 1, 1, 1);
 
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
@@ -238,48 +323,41 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "MainWindow", nullptr));
-        Transaksi->setText(QCoreApplication::translate("MainWindow", "Transaksi", nullptr));
-        Histori->setText(QCoreApplication::translate("MainWindow", "Histori", nullptr));
-        Budgeting->setText(QCoreApplication::translate("MainWindow", "Budgeting", nullptr));
-        Rekomendasi->setText(QCoreApplication::translate("MainWindow", "Rekomendasi", nullptr));
-        Pengaturan->setText(QCoreApplication::translate("MainWindow", "Pengaturan", nullptr));
+        btnTransaksi->setText(QCoreApplication::translate("MainWindow", "Transaksi", nullptr));
+        btnHistori->setText(QCoreApplication::translate("MainWindow", "Histori", nullptr));
+        btnBudgeting->setText(QCoreApplication::translate("MainWindow", "Budgeting", nullptr));
+        btnPengaturan->setText(QCoreApplication::translate("MainWindow", "Pengaturan", nullptr));
+        btnRekomendasi->setText(QCoreApplication::translate("MainWindow", "Rekomendasi", nullptr));
+        label_11->setText(QCoreApplication::translate("MainWindow", "Histori", nullptr));
+        QTableWidgetItem *___qtablewidgetitem = tabelHistori->horizontalHeaderItem(0);
+        ___qtablewidgetitem->setText(QCoreApplication::translate("MainWindow", "Tanggal", nullptr));
+        QTableWidgetItem *___qtablewidgetitem1 = tabelHistori->horizontalHeaderItem(1);
+        ___qtablewidgetitem1->setText(QCoreApplication::translate("MainWindow", "Jenis", nullptr));
+        QTableWidgetItem *___qtablewidgetitem2 = tabelHistori->horizontalHeaderItem(2);
+        ___qtablewidgetitem2->setText(QCoreApplication::translate("MainWindow", "Kategori", nullptr));
+        QTableWidgetItem *___qtablewidgetitem3 = tabelHistori->horizontalHeaderItem(3);
+        ___qtablewidgetitem3->setText(QCoreApplication::translate("MainWindow", "Jumlah", nullptr));
+        QTableWidgetItem *___qtablewidgetitem4 = tabelHistori->horizontalHeaderItem(4);
+        ___qtablewidgetitem4->setText(QCoreApplication::translate("MainWindow", "Catatan", nullptr));
+        label_13->setText(QCoreApplication::translate("MainWindow", "Rekomendasi", nullptr));
+        TambahKategori->setText(QCoreApplication::translate("MainWindow", "Tambah", nullptr));
         label_7->setText(QCoreApplication::translate("MainWindow", "Masukkan Kategori", nullptr));
-        label_8->setText(QCoreApplication::translate("MainWindow", "Jumlah Budget (max. 1.000.000)", nullptr));
+        QTableWidgetItem *___qtablewidgetitem5 = tabelBudget->horizontalHeaderItem(0);
+        ___qtablewidgetitem5->setText(QCoreApplication::translate("MainWindow", "Kategori", nullptr));
+        QTableWidgetItem *___qtablewidgetitem6 = tabelBudget->horizontalHeaderItem(1);
+        ___qtablewidgetitem6->setText(QCoreApplication::translate("MainWindow", "Persentase(%)", nullptr));
         SimpanBudget->setText(QCoreApplication::translate("MainWindow", "Simpan", nullptr));
-        QTableWidgetItem *___qtablewidgetitem = tabelBudget->horizontalHeaderItem(0);
-        ___qtablewidgetitem->setText(QCoreApplication::translate("MainWindow", "%", nullptr));
-        QTableWidgetItem *___qtablewidgetitem1 = tabelBudget->verticalHeaderItem(0);
-        ___qtablewidgetitem1->setText(QCoreApplication::translate("MainWindow", "Infaq", nullptr));
-        QTableWidgetItem *___qtablewidgetitem2 = tabelBudget->verticalHeaderItem(1);
-        ___qtablewidgetitem2->setText(QCoreApplication::translate("MainWindow", "Pokok(Daruriyat)", nullptr));
-        QTableWidgetItem *___qtablewidgetitem3 = tabelBudget->verticalHeaderItem(2);
-        ___qtablewidgetitem3->setText(QCoreApplication::translate("MainWindow", "Tabungan/Dana Darurat", nullptr));
-        QTableWidgetItem *___qtablewidgetitem4 = tabelBudget->verticalHeaderItem(3);
-        ___qtablewidgetitem4->setText(QCoreApplication::translate("MainWindow", "Investasi Ilmu", nullptr));
-        QTableWidgetItem *___qtablewidgetitem5 = tabelBudget->verticalHeaderItem(4);
-        ___qtablewidgetitem5->setText(QCoreApplication::translate("MainWindow", "Lifestyle", nullptr));
-
-        const bool __sortingEnabled = tabelBudget->isSortingEnabled();
-        tabelBudget->setSortingEnabled(false);
-        QTableWidgetItem *___qtablewidgetitem6 = tabelBudget->item(0, 0);
-        ___qtablewidgetitem6->setText(QCoreApplication::translate("MainWindow", "5", nullptr));
-        QTableWidgetItem *___qtablewidgetitem7 = tabelBudget->item(1, 0);
-        ___qtablewidgetitem7->setText(QCoreApplication::translate("MainWindow", "60", nullptr));
-        QTableWidgetItem *___qtablewidgetitem8 = tabelBudget->item(2, 0);
-        ___qtablewidgetitem8->setText(QCoreApplication::translate("MainWindow", "20", nullptr));
-        QTableWidgetItem *___qtablewidgetitem9 = tabelBudget->item(3, 0);
-        ___qtablewidgetitem9->setText(QCoreApplication::translate("MainWindow", "5", nullptr));
-        QTableWidgetItem *___qtablewidgetitem10 = tabelBudget->item(4, 0);
-        ___qtablewidgetitem10->setText(QCoreApplication::translate("MainWindow", "10", nullptr));
-        tabelBudget->setSortingEnabled(__sortingEnabled);
-
+        label_10->setText(QCoreApplication::translate("MainWindow", "Budgeting", nullptr));
+        label_9->setText(QCoreApplication::translate("MainWindow", "List Budget", nullptr));
+        label_12->setText(QCoreApplication::translate("MainWindow", "Pengaturan", nullptr));
         label->setText(QCoreApplication::translate("MainWindow", "TRANSAKSI", nullptr));
+        label_2->setText(QCoreApplication::translate("MainWindow", "Pilih Jenis Transaksi : ", nullptr));
         comboJenis->setItemText(0, QCoreApplication::translate("MainWindow", "Pemasukan", nullptr));
         comboJenis->setItemText(1, QCoreApplication::translate("MainWindow", "Pengeluaran", nullptr));
 
-        label_2->setText(QCoreApplication::translate("MainWindow", "Pilih Jenis Transaksi : ", nullptr));
         label_3->setText(QCoreApplication::translate("MainWindow", "Masukkan Nominal Uang ", nullptr));
         label_4->setText(QCoreApplication::translate("MainWindow", "Masukkan Tanggal", nullptr));
+        label_5->setText(QCoreApplication::translate("MainWindow", "Pilih Kategori", nullptr));
         comboKategori->setItemText(0, QCoreApplication::translate("MainWindow", "Makan", nullptr));
         comboKategori->setItemText(1, QCoreApplication::translate("MainWindow", "Infaq/shadaqah", nullptr));
         comboKategori->setItemText(2, QCoreApplication::translate("MainWindow", "Transport", nullptr));
@@ -288,7 +366,6 @@ public:
         comboKategori->setItemText(5, QCoreApplication::translate("MainWindow", "Air", nullptr));
         comboKategori->setItemText(6, QCoreApplication::translate("MainWindow", "Other", nullptr));
 
-        label_5->setText(QCoreApplication::translate("MainWindow", "Pilih Kategori", nullptr));
         label_6->setText(QCoreApplication::translate("MainWindow", "Catatan", nullptr));
         SimpanTransaksi->setText(QCoreApplication::translate("MainWindow", "Simpan", nullptr));
     } // retranslateUi

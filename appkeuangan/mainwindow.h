@@ -26,6 +26,8 @@ private:
     Ui::MainWindow *ui;
     void muatHistori();
     void updateBudgetFromIncome(double incomeAmount);
+    void tambahKategoriAuto();
+    void simpanKonfigurasiBudget();
 
 };
 #endif // MAINWINDOW_H

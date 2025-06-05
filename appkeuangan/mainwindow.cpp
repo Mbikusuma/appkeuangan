@@ -1,11 +1,11 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-
 #include <QMessageBox>
 #include <QDebug>
 #include <QFile>
 #include <QTextStream>
 #include <QDate>
+#include <QDoubleSpinBox>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -13,137 +13,163 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-    // Tombol Navigasi Antar Halaman
-    connect(ui->Transaksi, &QPushButton::clicked, [=]() {
-        ui->stackedWidget->setCurrentWidget(ui->PageTransaksi);
+    // Tombol Navigasi
+    connect(ui->btnTransaksi, &QPushButton::clicked, [=]() {
+        ui->stackedWidget->setCurrentWidget(ui->Page0Transaksi);
     });
-
-    connect(ui->Histori, &QPushButton::clicked, this, [=]() {
-        ui->stackedWidget->setCurrentWidget(ui->PageHistori);
+    connect(ui->btnHistori, &QPushButton::clicked, [=]() {
+        ui->stackedWidget->setCurrentWidget(ui->Page1Histori);
         muatHistori();
     });
-
-    connect(ui->Budgeting, &QPushButton::clicked, this, [=]() {
-        ui->stackedWidget->setCurrentWidget(ui->PageBudgeting);
-        tampilkanBudget(); // Refresh isi tabel budgeting
+    connect(ui->btnBudgeting, &QPushButton::clicked, [=]() {
+        ui->stackedWidget->setCurrentWidget(ui->Page2Budgeting);
+    });
+    connect(ui->btnPengaturan, &QPushButton::clicked, [=]() {
+        ui->stackedWidget->setCurrentWidget(ui->Page3Pengaturan);
+    });
+    connect(ui->btnRekomendasi, &QPushButton::clicked, [=]() {
+        ui->stackedWidget->setCurrentWidget(ui->Page4Rekom);
     });
 
-    connect(ui->Rekomendasi, &QPushButton::clicked, [=]() {
-        ui->stackedWidget->setCurrentWidget(ui->PageRekom);
-    });
-
-    connect(ui->Pengaturan, &QPushButton::clicked, [=]() {
-        ui->stackedWidget->setCurrentWidget(ui->PagePengaturan);
-    });
-
-    // Aksi Tombol
+    // Tombol Aksi
     connect(ui->SimpanTransaksi, &QPushButton::clicked, this, &MainWindow::simpanTransaksi);
-    connect(ui->SimpanBudget, &QPushButton::clicked, this, &MainWindow::simpanBudget);
+    connect(ui->TambahKategori, &QPushButton::clicked, this, &MainWindow::tambahKategoriAuto);
 
-    // Pilihan jenis transaksi
+    // Inisialisasi
     ui->comboJenis->addItems({"Pemasukan", "Pengeluaran"});
+    tampilkanBudget();
 }
 
-MainWindow::~MainWindow()
-{
+MainWindow::~MainWindow() {
     delete ui;
 }
 
-// Fungsi Simpan Transaksi
 void MainWindow::simpanTransaksi() {
     QString jenis = ui->comboJenis->currentText();
     QString kategori = ui->comboKategori->currentText();
     QString tanggal = QDate::currentDate().toString("yyyy-MM-dd");
-    QString jumlah = ui->inputJumlah->text();
+    QString jumlahStr = ui->inputJumlah->text();
     QString catatan = ui->inputCatatan->toPlainText();
 
-    if (jumlah.isEmpty()) {
-        QMessageBox::warning(this, "Peringatan", "Jumlah tidak boleh kosong.");
+    if (jumlahStr.isEmpty() || kategori.isEmpty()) {
+        QMessageBox::warning(this, "Peringatan", "Jumlah dan kategori tidak boleh kosong.");
+        return;
+    }
+
+    bool ok;
+    double jumlah = jumlahStr.toDouble(&ok);
+    if (!ok || jumlah <= 0) {
+        QMessageBox::warning(this, "Peringatan", "Jumlah harus berupa angka positif.");
         return;
     }
 
     QFile file("transaksi.csv");
     if (file.open(QIODevice::Append | QIODevice::Text)) {
         QTextStream out(&file);
-        out << tanggal << "," << jenis << "," << kategori << "," << jumlah << "," << catatan << "\n";
+        out << tanggal << "," << jenis << "," << kategori << "," << jumlahStr << "," << catatan << "\n";
         file.close();
+        QMessageBox::information(this, "Berhasil", "Transaksi berhasil disimpan.");
 
-        QMessageBox::information(this, "Berhasil", "Transaksi berhasil disimpan!");
-        ui->inputJumlah->clear();
-        ui->inputCatatan->clear();
-    } else {
-        QMessageBox::critical(this, "Gagal", "Tidak bisa membuka file transaksi.");
+        if (jenis == "Pemasukan") {
+            updateBudgetFromIncome(jumlah);
+        }
     }
-
-    if (jenis == "Pemasukan") {
-        updateBudgetFromIncome(jumlah.toDouble());
-    }
+    muatHistori();
+    ui->inputJumlah->clear();
+    ui->inputCatatan->clear();
+    ui->comboKategori->setCurrentIndex(0);
+    ui->comboJenis->setCurrentIndex(0);
 }
 
-// Fungsi Muat Histori Transaksi
 void MainWindow::muatHistori() {
     QFile file("transaksi.csv");
-    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
-        return;
-    }
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) return;
 
     QTextStream in(&file);
-    ui->tabelHistori->setRowCount(0); // Reset isi tabel
-
+    ui->tabelHistori->setRowCount(0);
     int row = 0;
     while (!in.atEnd()) {
-        QString line = in.readLine();
-        QStringList data = line.split(",");
-        if (data.size() < 5) continue;
-
-        ui->tabelHistori->insertRow(row);
-        for (int col = 0; col < 5; ++col) {
-            ui->tabelHistori->setItem(row, col, new QTableWidgetItem(data[col]));
+        QStringList data = in.readLine().split(",");
+        if (data.size() >= 5) {
+            ui->tabelHistori->insertRow(row);
+            for (int col = 0; col < 5; ++col) {
+                ui->tabelHistori->setItem(row, col, new QTableWidgetItem(data[col]));
+            }
+            row++;
         }
-        row++;
     }
-
+    ui->tabelHistori->setHorizontalHeaderLabels({"Tanggal", "Jenis", "Kategori", "Jumlah", "Catatan"});
+    ui->tabelHistori->horizontalHeader()->setStretchLastSection(true);
     file.close();
 }
 
-// Fungsi Simpan Budget Manual
-void MainWindow::simpanBudget() {
+void MainWindow::tambahKategoriAuto() {
     QString kategori = ui->inputKategoriBudget->text();
-    double jumlah = ui->inputJumlahBudget->value();
+    if (kategori.isEmpty()) return;
 
-    if (kategori.isEmpty() || jumlah <= 0) {
-        QMessageBox::warning(this, "Peringatan", "Kategori dan jumlah harus diisi dengan benar.");
-        return;
-    }
+    int row = ui->tabelBudget->rowCount();
+    ui->tabelBudget->insertRow(row);
+    ui->tabelBudget->insertColumn(2);
+    ui->tabelBudget->setHorizontalHeaderLabels({"Kategori","Persentase(%)"});
+    ui->tabelBudget->setItem(row, 0, new QTableWidgetItem(kategori));
 
-    QFile file("budget.csv");
-    if (file.open(QIODevice::Append | QIODevice::Text)) {
-        QTextStream out(&file);
-        out << kategori << "," << jumlah << "\n";
-        file.close();
-    }
+    QDoubleSpinBox *spin = new QDoubleSpinBox();
+    spin->setRange(0, 100);
+    spin->setDecimals(1);
+    spin->setSuffix(" %");
+    spin->setValue(0);
 
+    connect(spin, QOverload<double>::of(&QDoubleSpinBox::valueChanged), this, [=](double) {
+        simpanKonfigurasiBudget();
+    });
+
+    ui->tabelBudget->resizeColumnsToContents();
+
+    ui->tabelBudget->setCellWidget(row, 1, spin);
     ui->inputKategoriBudget->clear();
-    ui->inputJumlahBudget->setValue(0);
-
-    tampilkanBudget();
+    simpanKonfigurasiBudget();
 }
 
-// Fungsi Tampilkan Budget ke Tabel
+void MainWindow::simpanKonfigurasiBudget() {
+    QFile file("budget_config.csv");
+    if (file.open(QIODevice::WriteOnly | QIODevice::Text)) {
+        QTextStream out(&file);
+        out << "Kategori,Persentase\n";
+        for (int row = 0; row < ui->tabelBudget->rowCount(); ++row) {
+            QString kategori = ui->tabelBudget->item(row, 0)->text();
+            QDoubleSpinBox *spin = qobject_cast<QDoubleSpinBox *>(ui->tabelBudget->cellWidget(row, 1));
+            if (spin) {
+                out << kategori << "," << spin->value() << "\n";
+            }
+        }
+        file.close();
+    }
+}
+
 void MainWindow::tampilkanBudget() {
     ui->tabelBudget->setRowCount(0);
-
-    QFile file("budget.csv");
+    QFile file("budget_config.csv");
     if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
         QTextStream in(&file);
+        in.readLine(); // skip header
         int row = 0;
         while (!in.atEnd()) {
-            QString line = in.readLine();
-            QStringList data = line.split(",");
+            QStringList data = in.readLine().split(",");
             if (data.size() == 2) {
                 ui->tabelBudget->insertRow(row);
                 ui->tabelBudget->setItem(row, 0, new QTableWidgetItem(data[0]));
-                ui->tabelBudget->setItem(row, 1, new QTableWidgetItem(data[1]));
+
+                QDoubleSpinBox *spin = new QDoubleSpinBox();
+                spin->setRange(0, 100);
+                spin->setDecimals(1);
+                spin->setSuffix(" %");
+                spin->setValue(data[1].toDouble());
+
+                connect(spin, QOverload<double>::of(&QDoubleSpinBox::valueChanged), this, [=](double) {
+                    simpanKonfigurasiBudget();
+                });
+
+                ui->tabelBudget->setCellWidget(row, 1, spin);
                 row++;
             }
         }
@@ -151,48 +177,42 @@ void MainWindow::tampilkanBudget() {
     }
 }
 
-// Fungsi Otomatis Update Budget dari Pemasukan
 void MainWindow::updateBudgetFromIncome(double incomeAmount) {
-    double kebutuhanPct = 0, tabunganPct = 0, jajanPct = 0;
-
-    QFile configFile("budget_config.csv");
-    if (configFile.open(QIODevice::ReadOnly)) {
-        QTextStream in(&configFile);
-        in.readLine(); // Skip header
-
-        while (!in.atEnd()) {
-            QString line = in.readLine();
-            QStringList parts = line.split(",");
-            if (parts.size() == 2) {
-                QString kategori = parts[0].trimmed().toLower();
-                double persen = parts[1].toDouble();
-
-                if (kategori == "kebutuhan") kebutuhanPct = persen;
-                else if (kategori == "tabungan") tabunganPct = persen;
-                else if (kategori == "jajan") jajanPct = persen;
-            }
-        }
-        configFile.close();
-    } else {
-        QMessageBox::warning(this, "Config Tidak Ditemukan", "File 'budget_config.csv' tidak ditemukan!");
+    QFile file("budget_config.csv");
+    if (!file.open(QIODevice::ReadOnly)) {
+        QMessageBox::warning(this, "Gagal", "File budget_config.csv tidak ditemukan!");
         return;
     }
+    QTextStream in(&file);
+    in.readLine();
 
-    // Hitung alokasi
-    double kebutuhan = incomeAmount * kebutuhanPct / 100.0;
-    double tabungan  = incomeAmount * tabunganPct  / 100.0;
-    double jajan     = incomeAmount * jajanPct     / 100.0;
+    QList<QString> kategoriList;
+    QList<double> persenList;
 
-    // Simpan ke file
+    while (!in.atEnd()) {
+        QString line = in.readLine();
+        QStringList parts = line.split(",");
+        if (parts.size() == 2) {
+            kategoriList.append(parts[0]);
+            persenList.append(parts[1].toDouble());
+        }
+    }
+    file.close();
+
     QFile outFile("budget_data.csv");
     if (outFile.open(QIODevice::Append | QIODevice::Text)) {
         QTextStream out(&outFile);
         QDate tanggal = QDate::currentDate();
-        out << tanggal.toString("yyyy-MM-dd") << ","
-            << incomeAmount << ","
-            << kebutuhan << ","
-            << tabungan << ","
-            << jajan << "\n";
+        for (int i = 0; i < kategoriList.size(); ++i) {
+            double alokasi = incomeAmount * persenList[i] / 100.0;
+            out << tanggal.toString("yyyy-MM-dd") << "," << kategoriList[i] << "," << alokasi << "\n";
+        }
         outFile.close();
     }
 }
+
+void MainWindow::simpanBudget() {
+    simpanKonfigurasiBudget();  // misalnya hanya memanggil fungsi ini
+    QMessageBox::information(this, "Tersimpan", "Data budget berhasil disimpan.");
+}
+

@@ -14,408 +14,522 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QHBoxLayout" name="horizontalLayout">
-    <item>
+   <layout class="QGridLayout" name="gridLayout_4">
+    <item row="0" column="0">
      <widget class="QWidget" name="widget" native="true">
       <layout class="QVBoxLayout" name="verticalLayout">
        <item>
-        <widget class="QPushButton" name="Transaksi">
+        <widget class="QPushButton" name="btnTransaksi">
          <property name="text">
           <string>Transaksi</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="Histori">
+        <widget class="QPushButton" name="btnHistori">
          <property name="text">
           <string>Histori</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="Budgeting">
+        <widget class="QPushButton" name="btnBudgeting">
          <property name="text">
           <string>Budgeting</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="Rekomendasi">
+        <widget class="QPushButton" name="btnPengaturan">
          <property name="text">
-          <string>Rekomendasi</string>
+          <string>Pengaturan</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="Pengaturan">
+        <widget class="QPushButton" name="btnRekomendasi">
          <property name="text">
-          <string>Pengaturan</string>
+          <string>Rekomendasi</string>
          </property>
         </widget>
        </item>
       </layout>
      </widget>
     </item>
-    <item>
+    <item row="0" column="1">
      <widget class="QStackedWidget" name="stackedWidget">
-      <widget class="QWidget" name="PageHistori">
-       <widget class="QTableWidget" name="tabelHistori">
-        <property name="geometry">
-         <rect>
-          <x>30</x>
-          <y>40</y>
-          <width>501</width>
-          <height>192</height>
-         </rect>
-        </property>
-        <column>
-         <property name="text">
-          <string>Tanggal</string>
-         </property>
-        </column>
-        <column>
-         <property name="text">
-          <string>Jenis</string>
-         </property>
-        </column>
-        <column>
-         <property name="text">
-          <string>Kategori</string>
-         </property>
-        </column>
-        <column>
-         <property name="text">
-          <string>Jumlah</string>
-         </property>
-        </column>
-        <column>
-         <property name="text">
-          <string>Catatan</string>
-         </property>
-        </column>
-       </widget>
-      </widget>
-      <widget class="QWidget" name="PageRekom"/>
-      <widget class="QWidget" name="PageBudgeting">
-       <widget class="QLineEdit" name="inputKategoriBudget">
-        <property name="geometry">
-         <rect>
-          <x>50</x>
-          <y>60</y>
-          <width>221</width>
-          <height>24</height>
-         </rect>
-        </property>
-       </widget>
-       <widget class="QLabel" name="label_7">
-        <property name="geometry">
-         <rect>
-          <x>50</x>
-          <y>30</y>
-          <width>111</width>
-          <height>16</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Masukkan Kategori</string>
-        </property>
-       </widget>
-       <widget class="QDoubleSpinBox" name="inputJumlahBudget">
-        <property name="geometry">
-         <rect>
-          <x>50</x>
-          <y>120</y>
-          <width>161</width>
-          <height>25</height>
-         </rect>
-        </property>
-        <property name="decimals">
-         <number>0</number>
-        </property>
-        <property name="maximum">
-         <double>1000000.000000000000000</double>
-        </property>
-       </widget>
-       <widget class="QLabel" name="label_8">
-        <property name="geometry">
-         <rect>
-          <x>50</x>
-          <y>100</y>
-          <width>171</width>
-          <height>16</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Jumlah Budget (max. 1.000.000)</string>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="SimpanBudget">
-        <property name="geometry">
-         <rect>
-          <x>530</x>
-          <y>420</y>
-          <width>91</width>
-          <height>24</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Simpan</string>
-        </property>
-       </widget>
-       <widget class="QTableWidget" name="tabelBudget">
-        <property name="geometry">
-         <rect>
-          <x>50</x>
-          <y>170</y>
-          <width>231</width>
-          <height>181</height>
-         </rect>
-        </property>
-        <row>
-         <property name="text">
-          <string>Infaq</string>
-         </property>
-        </row>
-        <row>
-         <property name="text">
-          <string>Pokok(Daruriyat)</string>
-         </property>
-        </row>
-        <row>
-         <property name="text">
-          <string>Tabungan/Dana Darurat</string>
-         </property>
-        </row>
-        <row>
-         <property name="text">
-          <string>Investasi Ilmu</string>
-         </property>
-        </row>
-        <row>
-         <property name="text">
-          <string>Lifestyle</string>
-         </property>
-        </row>
-        <column>
-         <property name="text">
-          <string>%</string>
-         </property>
-        </column>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <widget class="QWidget" name="Page1Histori">
+       <layout class="QGridLayout" name="gridLayout_3">
         <item row="0" column="0">
-         <property name="text">
-          <string>5</string>
-         </property>
+         <widget class="QLabel" name="label_11">
+          <property name="font">
+           <font>
+            <pointsize>12</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>Histori</string>
+          </property>
+         </widget>
         </item>
         <item row="1" column="0">
-         <property name="text">
-          <string>60</string>
-         </property>
+         <widget class="QTableWidget" name="tabelHistori">
+          <column>
+           <property name="text">
+            <string>Tanggal</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Jenis</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Kategori</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Jumlah</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Catatan</string>
+           </property>
+          </column>
+         </widget>
         </item>
-        <item row="2" column="0">
-         <property name="text">
-          <string>20</string>
-         </property>
-        </item>
-        <item row="3" column="0">
-         <property name="text">
-          <string>5</string>
-         </property>
-        </item>
-        <item row="4" column="0">
-         <property name="text">
-          <string>10</string>
-         </property>
-        </item>
-       </widget>
+       </layout>
       </widget>
-      <widget class="QWidget" name="PagePengaturan"/>
-      <widget class="QWidget" name="PageTransaksi">
-       <widget class="QLabel" name="label">
+      <widget class="QWidget" name="Page4Rekom">
+       <widget class="QLabel" name="label_13">
         <property name="geometry">
          <rect>
           <x>30</x>
-          <y>30</y>
-          <width>61</width>
-          <height>16</height>
+          <y>20</y>
+          <width>111</width>
+          <height>31</height>
          </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>12</pointsize>
+         </font>
         </property>
         <property name="text">
-         <string>TRANSAKSI</string>
+         <string>Rekomendasi</string>
         </property>
        </widget>
-       <widget class="QComboBox" name="comboJenis">
-        <property name="geometry">
-         <rect>
-          <x>150</x>
-          <y>50</y>
-          <width>101</width>
-          <height>24</height>
-         </rect>
-        </property>
-        <item>
-         <property name="text">
-          <string>Pemasukan</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>Pengeluaran</string>
-         </property>
-        </item>
-       </widget>
-       <widget class="QLabel" name="label_2">
+       <widget class="QLabel" name="label_14">
         <property name="geometry">
          <rect>
           <x>30</x>
           <y>50</y>
           <width>111</width>
-          <height>16</height>
+          <height>31</height>
          </rect>
         </property>
+        <property name="font">
+         <font>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
         <property name="text">
-         <string>Pilih Jenis Transaksi : </string>
+         <string>Input kategori</string>
         </property>
        </widget>
-       <widget class="QLineEdit" name="inputJumlah">
+       <widget class="QLabel" name="label_15">
         <property name="geometry">
          <rect>
-          <x>40</x>
+          <x>30</x>
           <y>100</y>
-          <width>113</width>
-          <height>24</height>
+          <width>221</width>
+          <height>31</height>
          </rect>
         </property>
-       </widget>
-       <widget class="QLabel" name="label_3">
-        <property name="geometry">
-         <rect>
-          <x>30</x>
-          <y>80</y>
-          <width>141</width>
-          <height>16</height>
-         </rect>
+        <property name="font">
+         <font>
+          <pointsize>12</pointsize>
+         </font>
         </property>
         <property name="text">
-         <string>Masukkan Nominal Uang </string>
+         <string>input budget </string>
         </property>
        </widget>
-       <widget class="QDateEdit" name="inputTanggal">
-        <property name="geometry">
-         <rect>
-          <x>40</x>
-          <y>150</y>
-          <width>110</width>
-          <height>25</height>
-         </rect>
-        </property>
-       </widget>
-       <widget class="QLabel" name="label_4">
-        <property name="geometry">
-         <rect>
-          <x>30</x>
-          <y>130</y>
-          <width>141</width>
-          <height>16</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Masukkan Tanggal</string>
-        </property>
-       </widget>
-       <widget class="QComboBox" name="comboKategori">
-        <property name="geometry">
-         <rect>
-          <x>40</x>
-          <y>200</y>
-          <width>111</width>
-          <height>24</height>
-         </rect>
-        </property>
-        <item>
-         <property name="text">
-          <string>Makan</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>Infaq/shadaqah</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>Transport</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>Bayar Kos</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>UKT</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>Air</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>Other</string>
-         </property>
-        </item>
-       </widget>
-       <widget class="QLabel" name="label_5">
+       <widget class="QLabel" name="label_16">
         <property name="geometry">
          <rect>
           <x>30</x>
           <y>180</y>
-          <width>81</width>
-          <height>16</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Pilih Kategori</string>
-        </property>
-       </widget>
-       <widget class="QTextEdit" name="inputCatatan">
-        <property name="geometry">
-         <rect>
-          <x>40</x>
-          <y>250</y>
-          <width>481</width>
+          <width>221</width>
           <height>31</height>
          </rect>
         </property>
+        <property name="font">
+         <font>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>kategori</string>
+        </property>
        </widget>
-       <widget class="QLabel" name="label_6">
+       <widget class="QTableWidget" name="tabelBudget_2">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>280</y>
+          <width>271</width>
+          <height>181</height>
+         </rect>
+        </property>
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="editTriggers">
+         <set>QAbstractItemView::EditTrigger::AllEditTriggers</set>
+        </property>
+        <property name="defaultDropAction">
+         <enum>Qt::DropAction::TargetMoveAction</enum>
+        </property>
+        <property name="alternatingRowColors">
+         <bool>true</bool>
+        </property>
+        <attribute name="horizontalHeaderStretchLastSection">
+         <bool>true</bool>
+        </attribute>
+        <column>
+         <property name="text">
+          <string>tanggal</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Rp.-</string>
+         </property>
+        </column>
+       </widget>
+       <widget class="QLineEdit" name="lineEdit">
         <property name="geometry">
          <rect>
           <x>30</x>
-          <y>230</y>
-          <width>81</width>
-          <height>16</height>
+          <y>80</y>
+          <width>113</width>
+          <height>22</height>
          </rect>
         </property>
-        <property name="text">
-         <string>Catatan</string>
-        </property>
        </widget>
-       <widget class="QPushButton" name="SimpanTransaksi">
+       <widget class="QLineEdit" name="lineEdit_2">
         <property name="geometry">
          <rect>
-          <x>530</x>
-          <y>440</y>
-          <width>80</width>
+          <x>30</x>
+          <y>130</y>
+          <width>113</width>
+          <height>22</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="pushButton">
+        <property name="geometry">
+         <rect>
+          <x>130</x>
+          <y>160</y>
+          <width>151</width>
           <height>24</height>
          </rect>
         </property>
         <property name="text">
-         <string>Simpan</string>
+         <string>simpan kategori</string>
         </property>
        </widget>
+       <widget class="QComboBox" name="comboBox">
+        <property name="geometry">
+         <rect>
+          <x>30</x>
+          <y>210</y>
+          <width>69</width>
+          <height>22</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_17">
+        <property name="geometry">
+         <rect>
+          <x>30</x>
+          <y>250</y>
+          <width>221</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>Tabel Pencatatan</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_18">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>470</y>
+          <width>221</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>Kekurangan Target</string>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="lineEdit_3">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>500</y>
+          <width>113</width>
+          <height>22</height>
+         </rect>
+        </property>
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="Page2Budgeting">
+       <layout class="QGridLayout" name="gridLayout">
+        <item row="2" column="1">
+         <widget class="QPushButton" name="TambahKategori">
+          <property name="text">
+           <string>Tambah</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="label_7">
+          <property name="text">
+           <string>Masukkan Kategori</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="0">
+         <widget class="QDoubleSpinBox" name="doubleSpinBox">
+          <property name="decimals">
+           <number>0</number>
+          </property>
+          <property name="maximum">
+           <double>1000000.000000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="6" column="0" colspan="2">
+         <widget class="QTableWidget" name="tabelBudget">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="defaultDropAction">
+           <enum>Qt::DropAction::TargetMoveAction</enum>
+          </property>
+          <attribute name="horizontalHeaderStretchLastSection">
+           <bool>true</bool>
+          </attribute>
+          <column>
+           <property name="text">
+            <string>Kategori</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Persentase(%)</string>
+           </property>
+          </column>
+         </widget>
+        </item>
+        <item row="7" column="2">
+         <widget class="QPushButton" name="SimpanBudget">
+          <property name="text">
+           <string>Simpan</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_10">
+          <property name="font">
+           <font>
+            <pointsize>12</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>Budgeting</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="QLineEdit" name="inputKategoriBudget"/>
+        </item>
+        <item row="3" column="0">
+         <widget class="QLabel" name="label_9">
+          <property name="text">
+           <string>List Budget</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="Page3Pengaturan">
+       <widget class="QLabel" name="label_12">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>20</y>
+          <width>111</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>Pengaturan</string>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="Page0Transaksi">
+       <layout class="QGridLayout" name="gridLayout_2">
+        <item row="0" column="0">
+         <widget class="QLabel" name="label">
+          <property name="text">
+           <string>TRANSAKSI</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="label_2">
+          <property name="text">
+           <string>Pilih Jenis Transaksi : </string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QComboBox" name="comboJenis">
+          <item>
+           <property name="text">
+            <string>Pemasukan</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Pengeluaran</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="QLabel" name="label_3">
+          <property name="text">
+           <string>Masukkan Nominal Uang </string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="0">
+         <widget class="QLineEdit" name="inputJumlah"/>
+        </item>
+        <item row="4" column="0">
+         <widget class="QLabel" name="label_4">
+          <property name="text">
+           <string>Masukkan Tanggal</string>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="0">
+         <widget class="QDateEdit" name="inputTanggal"/>
+        </item>
+        <item row="6" column="0">
+         <widget class="QLabel" name="label_5">
+          <property name="text">
+           <string>Pilih Kategori</string>
+          </property>
+         </widget>
+        </item>
+        <item row="7" column="0">
+         <widget class="QComboBox" name="comboKategori">
+          <item>
+           <property name="text">
+            <string>Makan</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Infaq/shadaqah</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Transport</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Bayar Kos</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>UKT</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Air</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Other</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+        <item row="8" column="0">
+         <widget class="QLabel" name="label_6">
+          <property name="text">
+           <string>Catatan</string>
+          </property>
+         </widget>
+        </item>
+        <item row="9" column="0">
+         <widget class="QTextEdit" name="inputCatatan"/>
+        </item>
+        <item row="10" column="1">
+         <widget class="QPushButton" name="SimpanTransaksi">
+          <property name="text">
+           <string>Simpan</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </widget>
      </widget>
     </item>
@@ -427,7 +541,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>21</height>
+     <height>22</height>
     </rect>
    </property>
   </widget>
